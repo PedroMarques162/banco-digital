@@ -46,7 +46,7 @@ def sacar(*, saldo, valor, extrato, limite, numero_saques, limite_saques):
     else:
         print("\n❌ Operação falhou! O valor informado é inválido.")
         
-    return saldo, extrato
+    return saldo, extrato, numero_saques
 
 def exibir_extrato(saldo, /, *, extrato):
     print("\n================ EXTRATO ================")
@@ -65,12 +65,12 @@ def criar_usuario(usuarios):
     nome = input("Informe o nome do usuário: ")
     data_nascimento = input("Informe a data de nascimento do usuário (dd-mm-aaaa): ")
     endereco = input("Informe o endereço do usuário (logradouro, nro - bairro - cidade, sigla estado): ")
-    
-    usuarios.append({"Nome": nome, "CPF": cpf, "Data de Nascimento": data_nascimento, "Endereço": endereco})
+
+    usuarios.append({"nome": nome, "cpf": cpf, "data_nascimento": data_nascimento, "endereco": endereco})
     print("\n✅ Usuário cadastrado com sucesso!")
 
 def filtrar_usuario(cpf, usuarios):
-    usuarios_filtrados = [usuario for usuario in usuarios if usuario["CPF"] == cpf]
+    usuarios_filtrados = [usuario for usuario in usuarios if usuario["cpf"] == cpf]
     return usuarios_filtrados[0] if usuarios_filtrados else None
 
 def criar_conta(agencia, numero_conta, usuarios):
@@ -115,7 +115,7 @@ def main():
             
         elif opcao == "5":
             valor = float(input("Informe o valor do saque: R$ "))
-            saldo, extrato = sacar(
+            saldo, extrato, numero_saques = sacar(
                 saldo=saldo,
                 valor=valor,
                 extrato=extrato,
