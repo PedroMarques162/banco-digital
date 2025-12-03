@@ -9,31 +9,31 @@ class Cliente:
         self.contas = []
 
     def realizar_transacao(self, conta, transacao):
-        transacao.registrar(conta)
 
-    def adicionar_conta(self, conta):
-        self.contas.append(conta)
+        if opcao == "6":
+            depositar(clientes)
 
+        elif opcao == "5":
+            sacar(clientes)
 
-class PessoaFisica(Cliente):
-    def __init__(self, nome, data_nascimento, cpf, endereco):
-        super().__init__(endereco)
-        self.nome = nome
-        self.data_nascimento = data_nascimento
-        self.cpf = cpf
+        elif opcao == "4":
+            exibir_extrato(clientes)
 
+        elif opcao == "1":
+            criar_cliente(clientes)
 
-class Conta:
-    def __init__(self, numero, cliente):
-        self._saldo = 0
-        self._numero = numero
-        self._agencia = "0001"
-        self._cliente = cliente
-        self._historico = Historico()
+        elif opcao == "3":
+            numero_conta = len(contas) + 1
+            criar_conta(numero_conta, clientes, contas)
 
-    @classmethod
-    def nova_conta(cls, cliente, numero):
-        return cls(numero, cliente)
+        elif opcao == "2":
+            listar_contas(contas)
+
+        elif opcao == "0":
+            break
+
+        else:
+            print("\n@@@ Operação inválida, por favor selecione novamente a operação desejada. @@@")
 
     @property
     def saldo(self):
@@ -322,17 +322,17 @@ def main():
         elif opcao == "e":
             exibir_extrato(clientes)
 
-        elif opcao == "nu":
+        elif opcao == "3":
             criar_cliente(clientes)
 
-        elif opcao == "nc":
+        elif opcao == "2":
             numero_conta = len(contas) + 1
             criar_conta(numero_conta, clientes, contas)
 
-        elif opcao == "lc":
+        elif opcao == "1":
             listar_contas(contas)
 
-        elif opcao == "q":
+        elif opcao == "0":
             break
 
         else:
