@@ -297,7 +297,13 @@ def criar_conta(numero_conta, clientes, contas):
     contas.append(conta)
     cliente.contas.append(conta)
 
-    print("\n=== Conta criada com sucesso! ===")
+    usuario = cliente.nome.split()[0].lower() + str(numero_conta)
+
+    if usuario:
+        print("\n✅ Conta criada com sucesso!")
+        return {"agência": conta.agencia, "número_conta": numero_conta, "usuário": usuario}
+
+    print("\n❌ Operação falhou! Usuário não encontrado, fluxo de criação de conta encerrado.")
 
 
 def listar_contas(contas):
@@ -310,33 +316,53 @@ def main():
     clientes = []
     contas = []
 
+    saldo = 0
+    limite = 500
+    extrato = ""
+    numero_saques = 0
+    usuarios = []
+
     while True:
         opcao = menu()
 
         if opcao == "6":
-            depositar(clientes)
+            valor = float(input("Informe o valor do depósito: R$ "))
+            saldo, extrato = depositar(saldo, valor, extrato)
 
         elif opcao == "5":
-            sacar(clientes)
+            valor = float(input("Informe o valor do saque: R$ "))
+            saldo, extrato, numero_saques = sacar(
+                saldo=saldo,
+                valor=valor,
+                extrato=extrato,
+                limite=limite,
+                numero_saques=numero_saques,
+                limite_saques=LIMITE_SAQUES
+            )
 
         elif opcao == "4":
-            exibir_extrato(clientes)
-
-        elif opcao == "3":
-            criar_cliente(clientes)
-
-        elif opcao == "2":
-            numero_conta = len(contas) + 1
-            criar_conta(numero_conta, clientes, contas)
+            exibir_extrato(saldo, extrato=extrato)
 
         elif opcao == "1":
-            listar_contas(contas)
+            criar_usuario(usuarios)
+
+        elif opcao == "3":
+            numero_conta = len(contas) + 1
+            conta = criar_conta(AGENCIA, numero_conta, usuarios)
+
+            if conta:
+                contas.append(conta)
+
+        elif opcao == "2":
+           listar_contas(contas)
 
         elif opcao == "0":
+            print("\n👋 Obrigado por usar nosso sistema. Até logo!")
             break
 
+
         else:
-            print("\n@@@ Operação inválida, por favor selecione novamente a operação desejada. @@@")
+            print("\n❌ Operação inválida, por favor selecione uma opção válida.")
 
 
 main()
