@@ -1,5 +1,5 @@
 import textwrap
-from abc import ABC, abstractmethod
+from abc import ABC, abstractclassmethod, abstractproperty
 from datetime import datetime
 
 
@@ -129,20 +129,20 @@ class Historico:
             {
                 "tipo": transacao.__class__.__name__,
                 "valor": transacao.valor,
-                "data": datetime.now().strftime("%d-%m-%Y %H:%M:%S"),
+                "data": datetime.now().strftime("%d-%m-%Y %H:%M:%s"),
             }
         )
 
 
 class Transacao(ABC):
     @property
-    @abstractmethod
+    @abstractproperty
     def valor(self):
-        raise NotImplementedError()
+        pass
 
-    @abstractmethod
+    @abstractclassmethod
     def registrar(self, conta):
-        raise NotImplementedError()
+        pass
 
 
 class Saque(Transacao):
@@ -178,13 +178,13 @@ class Deposito(Transacao):
 def menu():
     menu = """\n
     ================ MENU ================
-    [6]	Depositar
-    [5]	Sacar
-    [4]	Extrato
-    [3]	Novo usuário
-    [2]	Nova conta
-    [1]	Listar contas
-    [0]	Sair
+    [d]\tDepositar
+    [s]\tSacar
+    [e]\tExtrato
+    [nc]\tNova conta
+    [lc]\tListar contas
+    [nu]\tNovo usuário
+    [q]\tSair
     => """
     return input(textwrap.dedent(menu))
 
@@ -313,26 +313,26 @@ def main():
     while True:
         opcao = menu()
 
-        if opcao == "6":
+        if opcao == "d":
             depositar(clientes)
 
-        elif opcao == "5":
+        elif opcao == "s":
             sacar(clientes)
 
-        elif opcao == "4":
+        elif opcao == "e":
             exibir_extrato(clientes)
 
-        elif opcao == "3":
+        elif opcao == "nu":
             criar_cliente(clientes)
 
-        elif opcao == "2":
+        elif opcao == "nc":
             numero_conta = len(contas) + 1
             criar_conta(numero_conta, clientes, contas)
 
-        elif opcao == "1":
+        elif opcao == "lc":
             listar_contas(contas)
 
-        elif opcao == "0":
+        elif opcao == "q":
             break
 
         else:
