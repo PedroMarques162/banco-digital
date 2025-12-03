@@ -1,5 +1,5 @@
 import textwrap
-from abc import ABC, abstractclassmethod, abstractproperty
+from abc import ABC, abstractmethod
 from datetime import datetime
 
 
@@ -9,31 +9,31 @@ class Cliente:
         self.contas = []
 
     def realizar_transacao(self, conta, transacao):
+        transacao.registrar(conta)
 
-        if opcao == "6":
-            depositar(clientes)
+    def adicionar_conta(self, conta):
+        self.contas.append(conta)
 
-        elif opcao == "5":
-            sacar(clientes)
 
-        elif opcao == "4":
-            exibir_extrato(clientes)
+class PessoaFisica(Cliente):
+    def __init__(self, nome, data_nascimento, cpf, endereco):
+        super().__init__(endereco)
+        self.nome = nome
+        self.data_nascimento = data_nascimento
+        self.cpf = cpf
 
-        elif opcao == "1":
-            criar_cliente(clientes)
 
-        elif opcao == "3":
-            numero_conta = len(contas) + 1
-            criar_conta(numero_conta, clientes, contas)
+class Conta:
+    def __init__(self, numero, cliente):
+        self._saldo = 0
+        self._numero = numero
+        self._agencia = "0001"
+        self._cliente = cliente
+        self._historico = Historico()
 
-        elif opcao == "2":
-            listar_contas(contas)
-
-        elif opcao == "0":
-            break
-
-        else:
-            print("\n@@@ Operação inválida, por favor selecione novamente a operação desejada. @@@")
+    @classmethod
+    def nova_conta(cls, cliente, numero):
+        return cls(numero, cliente)
 
     @property
     def saldo(self):
@@ -129,20 +129,20 @@ class Historico:
             {
                 "tipo": transacao.__class__.__name__,
                 "valor": transacao.valor,
-                "data": datetime.now().strftime("%d-%m-%Y %H:%M:%s"),
+                "data": datetime.now().strftime("%d-%m-%Y %H:%M:%S"),
             }
         )
 
 
 class Transacao(ABC):
     @property
-    @abstractproperty
+    @abstractmethod
     def valor(self):
-        pass
+        raise NotImplementedError()
 
-    @abstractclassmethod
+    @abstractmethod
     def registrar(self, conta):
-        pass
+        raise NotImplementedError()
 
 
 class Saque(Transacao):
@@ -178,13 +178,13 @@ class Deposito(Transacao):
 def menu():
     menu = """\n
     ================ MENU ================
-    [6]\tDepositar
-    [5]\tSacar
-    [4]\tExtrato
-    [3]\tNova conta
-    [2]\tListar contas
-    [1]\tNovo usuário
-    [0]\tSair
+    [6]	Depositar
+    [5]	Sacar
+    [4]	Extrato
+    [3]	Novo usuário
+    [2]	Nova conta
+    [1]	Listar contas
+    [0]	Sair
     => """
     return input(textwrap.dedent(menu))
 
@@ -313,13 +313,13 @@ def main():
     while True:
         opcao = menu()
 
-        if opcao == "d":
+        if opcao == "6":
             depositar(clientes)
 
-        elif opcao == "s":
+        elif opcao == "5":
             sacar(clientes)
 
-        elif opcao == "e":
+        elif opcao == "4":
             exibir_extrato(clientes)
 
         elif opcao == "3":
