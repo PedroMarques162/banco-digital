@@ -1,4 +1,4 @@
-# 🚀 Banco Digital - Zentora Bank
+# 💲 Banco Digital - Zentora Bank
 
 > Breve descrição de uma linha sobre o que o projeto faz.
 
@@ -46,3 +46,4 @@ Para garantir a estabilidade do sistema (visão de Suporte), foram aplicadas as 
   
 
   Lixux ou macOS é necessário usar "python3"
+
