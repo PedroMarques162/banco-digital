@@ -1,7 +1,7 @@
 # 💲 Banco Digital - Zentora Bank
 
 ### 📋 Sobre o Projeto
-Este projeto foi desenvolvido para simulação de um vanco digital. Ele permite que usuários gerenciem suas finanças de uma interface de linha de comando. O sistema foi construpido pensando na resiliência e no tratamento de exceções, facilitando o suporte técnico e a manutenção do código.
+Este projeto foi desenvolvido para simulação de um banco digital. Ele permite que usuários gerenciem suas finanças de uma interface de linha de comando. O sistema foi construído pensando na resiliência e no tratamento de exceções, facilitando o suporte técnico e a manutenção do código.
 
 ### 🚀 Funcionalidades
 - **Abertura de Conta: Cadastro de Usuários com validação de dados.
@@ -44,5 +44,6 @@ Para garantir a estabilidade do sistema (visão de Suporte), foram aplicadas as 
   
 
   Lixux ou macOS é necessário usar "python3"
+
 
 
